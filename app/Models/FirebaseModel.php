@@ -13,8 +13,9 @@ class FirebaseModel
     protected $storage;
     public function __construct()
     {
+        $firebase_credentiels=base64_decode(env("FIREBASE_KEY_BASE64"));
         $factory = (new Factory)
-            ->withServiceAccount("/var/www/firebase-key.json")
+            ->withServiceAccount(json_decode($firebase_credentiels,true))
             ->withDatabaseUri(env('FIREBASE_DATABASE_URL'));
 
         $this->database = $factory->createDatabase();
